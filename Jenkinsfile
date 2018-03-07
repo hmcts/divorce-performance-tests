@@ -26,7 +26,7 @@ buildNode() {
 
                 def home = pwd()
                 try {
-                    env.BASE_URL = 'https://www-test.divorce.reform.hmcts.net'
+                    env.BASE_URL = 'https://www-dev.divorce.reform.hmcts.net/index'
                     env.IDAM_URL = 'https://idam-test.dev.ccidam.reform.hmcts.net'
                     sh "mvn clean install"
                     sh "mvn gatling:execute"
