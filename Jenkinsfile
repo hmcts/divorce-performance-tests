@@ -33,10 +33,8 @@ buildNode() {
 
                 def home = pwd()
                 try {
-                    env.BASE_URL = 'https://www-dev.divorce.reform.hmcts.net/index'
-                    env.IDAM_URL = 'https://idam-test.dev.ccidam.reform.hmcts.net'
                     sh "mvn clean install"
-                    sh "mvn gatling:execute"
+                    sh "E2E_FRONTEND_URL=${frontend_url()} IDAM_URL=${idam_url()} mvn gatling:execute"
                 }
                 finally {
                     gatlingArchive()
@@ -55,10 +53,10 @@ buildNode() {
 }
 
 def environment() {
-    if (ENVIRONMENT in ['dev', 'test', 'demo', 'preprod']) {
-        return ENVIRONMENT
+    if (env.ENVIRONMENT in ['dev', 'test', 'demo', 'preprod']) {
+        return env.ENVIRONMENT
     } else {
-        error "$ENVIRONMENT is not one of reforms environments"
+      error "${env.ENVIRONMENT} is not one of reforms environments"
     }
 }
 
