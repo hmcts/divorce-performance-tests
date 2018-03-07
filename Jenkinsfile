@@ -3,8 +3,15 @@
 //noinspection GroovyAssignabilityCheck Jenkins requires this format
 properties(
   [[$class: 'GithubProjectProperty', displayName: 'Divorce Performance tests', projectUrlStr: 'https://github.com/hmcts/div-performance-tests/'],
+   parameters([
+                string(
+                        defaultValue: 'dev',
+                        description: 'Which environment to use for running tests (dev, test)',
+                        name: 'ENVIRONMENT'
+                )
+        ]),
    pipelineTriggers([
-     [$class: 'hudson.triggers.TimerTrigger', spec: '0 0 * * *']
+     [$class: 'hudson.triggers.TimerTrigger', spec: 'H H(0-2) * * *']
    ])]
 )
 
@@ -51,7 +58,7 @@ def environment() {
     if (ENVIRONMENT in ['dev', 'test', 'demo', 'preprod']) {
         return ENVIRONMENT
     } else {
-        error "$ENVIRONMENT is not one of reforms crossbrowser environments"
+        error "$ENVIRONMENT is not one of reforms environments"
     }
 }
 
