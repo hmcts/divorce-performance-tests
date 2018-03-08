@@ -76,7 +76,7 @@ object BasicDivorce {
         .exec(AboutDivorce.financialArrangements)
         .exec(AboutDivorce.financialAdvice)
         .exec(AboutDivorce.claimCosts)
-        .exec(PetitionerRespondent.addMarriageCertificate)
+//        .exec(PetitionerRespondent.addMarriageCertificate)
         .exec(PetitionerRespondent.completeMarriageCertificate)
 
         // Check Your Answers
