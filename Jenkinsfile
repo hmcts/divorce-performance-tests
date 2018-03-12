@@ -27,7 +27,7 @@ buildNode() {
 
             stage('Result') {
                 deleteDir()
-                git url: 'https://github.com/hmcts/divorce-performance-tests.git'
+                git url: 'https://github.com/hmcts/div-performance-tests.git'
                 cloneAnsibleDivorce()
                 env_vars( environment() )
 
