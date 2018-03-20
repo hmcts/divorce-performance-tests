@@ -1,9 +1,10 @@
 package simulations.divorce
 
+import com.typesafe.config._
 import io.gatling.core.Predef._
 import io.gatling.http.Predef._
-
-import com.typesafe.config._
+import simulations.checks.CsrfCheck
+import simulations.checks.CsrfCheck.{csrfParameter, csrfTemplate}
 
 object PetitionerRespondent {
 
@@ -15,8 +16,10 @@ object PetitionerRespondent {
     val confidentialPetitionerDetails = exec(http("/petitioner-respondent/confidential")
         .post("/petitioner-respondent/confidential")
         .formParam("petitionerContactDetailsConfidential", "share")
+        .formParam(csrfParameter, csrfTemplate)
         .check(status.is(200))
-        .check(currentLocation.is(baseurl + "/petitioner-respondent/names")))
+        .check(currentLocation.is(baseurl + "/petitioner-respondent/names"))
+        .check(CsrfCheck.save))
         .pause(continuePause)
 
     val names = exec(http("/petitioner-respondent/names")
@@ -25,16 +28,20 @@ object PetitionerRespondent {
         .formParam("petitionerLastName", "Name")
         .formParam("respondentFirstName", "Respondent")
         .formParam("respondentLastName", "Name")
+        .formParam(csrfParameter, csrfTemplate)
         .check(status.is(200))
-        .check(currentLocation.is(baseurl + "/petitioner-respondent/names-on-certificate")))
+        .check(currentLocation.is(baseurl + "/petitioner-respondent/names-on-certificate"))
+        .check(CsrfCheck.save))
         .pause(continuePause)
 
     val namesOnMarriageCertificate = exec(http("/petitioner-respondent/names-on-certificate")
         .post("/petitioner-respondent/names-on-certificate")
         .formParam("marriagePetitionerName", "Petitioner Marriage Name")
         .formParam("marriageRespondentName", "Respondent Marriage Name")
+        .formParam(csrfParameter, csrfTemplate)
         .check(status.is(200))
-        .check(currentLocation.is(baseurl + "/petitioner-respondent/changed-name")))
+        .check(currentLocation.is(baseurl + "/petitioner-respondent/changed-name"))
+        .check(CsrfCheck.save))
         .pause(continuePause)
 
     val namesChangedFromMarriageCertificate = exec(http("/petitioner-respondent/changed-name")
@@ -42,8 +49,10 @@ object PetitionerRespondent {
         .formParam("petitionerNameDifferentToMarriageCertificate", "Yes")
         .formParam("petitionerNameChangedHow[]", "other")
         .formParam("petitionerNameChangedHowOtherDetails", "Another way")
+        .formParam(csrfParameter, csrfTemplate)
         .check(status.is(200))
-        .check(currentLocation.is(baseurl + "/petitioner-respondent/contact-details")))
+        .check(currentLocation.is(baseurl + "/petitioner-respondent/contact-details"))
+        .check(CsrfCheck.save))
         .pause(continuePause)
 
     val petitionerContactDetails = exec(http("/petitioner-respondent/contact-details")
@@ -51,8 +60,10 @@ object PetitionerRespondent {
         .formParam("petitionerEmail", "petitioner.name@example.com")
         .formParam("petitionerPhoneNumber", "01234567890")
         .formParam("petitionerConsent", "Yes")
+        .formParam(csrfParameter, csrfTemplate)
         .check(status.is(200))
-        .check(currentLocation.is(baseurl + "/petitioner-respondent/address")))
+        .check(currentLocation.is(baseurl + "/petitioner-respondent/address"))
+        .check(CsrfCheck.save))
         .pause(continuePause)
 
     val petitionerAddress = exec(http("/petitioner-respondent/address")
@@ -61,7 +72,9 @@ object PetitionerRespondent {
         .formParam("addressType", "postcode")
         .formParam("searchPostcode", "true")
         .formParam("addressConfirmed", "false")
-        .check(status.is(200)))
+        .formParam(csrfParameter, csrfTemplate)
+        .check(status.is(200))
+        .check(CsrfCheck.save))
         .pause(continuePause)
         .exec(http("/petitioner-respondent/address")
             .post("/petitioner-respondent/address")
@@ -70,7 +83,9 @@ object PetitionerRespondent {
             .formParam("selectAddress", "true")
             .formParam("addressConfirmed", "false")
             .formParam("postcode", "sw1p 3bt")
-            .check(status.is(200)))
+            .formParam(csrfParameter, csrfTemplate)
+            .check(status.is(200))
+            .check(CsrfCheck.save))
         .pause(continuePause)
         .exec(http("/petitioner-respondent/address")
             .post("/petitioner-respondent/address")
@@ -82,45 +97,56 @@ object PetitionerRespondent {
             .formParam("addressType", "postcode")
             .formParam("addressConfirmed", "true")
             .formParam("postcode", "sw1p 3bt")
+            .formParam(csrfParameter, csrfTemplate)
             .check(status.is(200))
-            .check(currentLocation.is(baseurl + "/petitioner-respondent/petitioner-correspondence/use-home-address")))
+            .check(currentLocation.is(baseurl + "/petitioner-respondent/petitioner-correspondence/use-home-address"))
+            .check(CsrfCheck.save))
         .pause(continuePause)
 
     val petitionerCorrespondenceAddress = exec(http("/petitioner-respondent/petitioner-correspondence/use-home-address")
         .post("/petitioner-respondent/petitioner-correspondence/use-home-address")
         .formParam("petitionerCorrespondenceUseHomeAddress", "Yes")
+        .formParam(csrfParameter, csrfTemplate)
         .check(status.is(200))
-        .check(currentLocation.is(baseurl + "/petitioner-respondent/live-together")))
+        .check(currentLocation.is(baseurl + "/petitioner-respondent/live-together"))
+        .check(CsrfCheck.save))
         .pause(continuePause)
 
     val liveTogether = exec(http("/petitioner-respondent/live-together")
         .post("/petitioner-respondent/live-together")
         .formParam("livingArrangementsLiveTogether", "Yes")
+        .formParam(csrfParameter, csrfTemplate)
         .check(status.is(200))
-        .check(currentLocation.is(baseurl + "/petitioner-respondent/respondent-correspondence/use-home-address")))
+        .check(currentLocation.is(baseurl + "/petitioner-respondent/respondent-correspondence/use-home-address"))
+        .check(CsrfCheck.save))
         .pause(continuePause)
 
     val respondentCorrespondenceToHomeAddress = exec(http("/petitioner-respondent/respondent-correspondence/use-home-address")
         .post("/petitioner-respondent/respondent-correspondence/use-home-address")
         .formParam("respondentCorrespondenceUseHomeAddress", "Yes")
+        .formParam(csrfParameter, csrfTemplate)
         .check(status.is(200))
-        .check(currentLocation.is(baseurl + "/about-divorce/reason-for-divorce/reason")))
+        .check(currentLocation.is(baseurl + "/about-divorce/reason-for-divorce/reason"))
+        .check(CsrfCheck.save))
         .pause(continuePause)
 
     val addMarriageCertificate = exec(http("add marriage certificate")
-        .post("/petitioner-respondent/marriage-certificate-upload")
+        .post("/petitioner-respondent/marriage-certificate-upload?" + csrfParameter + "=" + csrfTemplate)
         .bodyPart(RawFileBodyPart("file", "marriage_certificate.jpg")
             .fileName("marriage_certificate.jpg")
             .transferEncoding("binary")).asMultipartForm
         .check(status.is(200))
-        .check(currentLocation.is(baseurl + "/petitioner-respondent/marriage-certificate-upload")))
+        .check(currentLocation.is(baseurl + "/petitioner-respondent/marriage-certificate-upload"))
+        .check(CsrfCheck.save))
         .pause(continuePause)
 
     val completeMarriageCertificate = exec(http("/petitioner-respondent/marriage-certificate-upload")
         .post("/petitioner-respondent/marriage-certificate-upload")
         .formParam("submit", "Continue")
+        .formParam(csrfParameter, csrfTemplate)
         .check(status.is(200))
-        .check(currentLocation.is(baseurl + "/check-your-answers")))
+        .check(currentLocation.is(baseurl + "/check-your-answers"))
+        .check(CsrfCheck.save))
         .pause(continuePause)
 
 }

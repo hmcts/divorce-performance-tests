@@ -105,7 +105,6 @@ class Divorce extends Simulation
         details("/about-divorce/financial/arrangements").responseTime.max.lessThan(expectedMaxResponseTime),
         details("/about-divorce/financial/arrangements Redirect 1").responseTime.max.lessThan(expectedMaxResponseTime),
         details("/about-divorce/financial/advice").responseTime.max.lessThan(expectedMaxResponseTime),
-        details("/about-divorce/financial/advice Redirect 1").responseTime.max.lessThan(expectedMaxResponseTime),
         details("/about-divorce/claim-costs").responseTime.max.lessThan(expectedMaxResponseTime),
         details("/about-divorce/claim-costs Redirect 1").responseTime.max.lessThan(expectedMaxResponseTime),
         details("add marriage certificate").responseTime.max.lessThan(expectedMaxUploadResponseTime),
