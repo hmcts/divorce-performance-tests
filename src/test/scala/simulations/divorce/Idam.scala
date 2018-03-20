@@ -3,10 +3,9 @@ package simulations.divorce
 import io.gatling.core.Predef._
 import io.gatling.http.Predef._
 import io.gatling.http.cookie.CookieJar
-
 import com.typesafe.config._
-
 import scenarios.BasicDivorce.jwtCookieName
+import simulations.checks.CsrfCheck
 
 object Idam {
 
@@ -27,7 +26,8 @@ object Idam {
             .formParamMap(Map("username" -> "${generatedEmail}", "password" -> "${generatedPassword}"))
             .check(regex("Incorrect email/password combination").notExists)
             .check(regex("Something went wrong").notExists).check(status.is(200))
-            .check(currentLocation.is(baseurl + "/screening-questions/has-marriage-broken")))
+            .check(currentLocation.is(baseurl + "/screening-questions/has-marriage-broken"))
+            .check(CsrfCheck.save))
         .exec(
             session => {
                 val jwt: String = session("gatling.http.cookies")
