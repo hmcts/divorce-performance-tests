@@ -44,12 +44,12 @@ object AboutYourMarriage {
         .check(currentLocation.is(baseurl + "/about-your-marriage/foreign-certificate")))
         .pause(continuePause)
 
-    val foreignCertificateToNewJurisdiction = exec(http("/about-your-marriage/foreign-certificate")
+    val foreignCertificate = exec(http("/about-your-marriage/foreign-certificate")
         .post("/about-your-marriage/foreign-certificate")
         .formParam("countryName", "Canada")
         .formParam("placeOfMarriage", "Cathedral-Basilica of Notre-Dame de Québec")
         .check(status.is(200))
-        .check(currentLocation.is(baseurl + "/njurisdiction/habitual-residence")))
+        .check(currentLocation.is(baseurl + "/jurisdiction/habitual-residence")))
         .pause(continuePause)
 
 }

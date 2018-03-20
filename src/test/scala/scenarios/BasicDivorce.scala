@@ -42,12 +42,12 @@ object BasicDivorce {
         .exec(AboutYourMarriage.inTheUK)
         .exec(AboutYourMarriage.aboutYourMarriageCertificate)
 
-        // New Jurisdiction
-        .exec(AboutYourMarriage.foreignCertificateToNewJurisdiction)
-        .exec(NewJurisdiction.habitualResidence)
-        .exec(NewJurisdiction.domicile)
-        .exec(NewJurisdiction.lastHabitualResidence)
-        .exec(NewJurisdiction.interstitial)
+        // Jurisdiction
+        .exec(AboutYourMarriage.foreignCertificate)
+        .exec(Jurisdiction.habitualResidence)
+        .exec(Jurisdiction.domicile)
+        .exec(Jurisdiction.lastHabitualResidence)
+        .exec(Jurisdiction.interstitial)
 
         // About You
         .exec(PetitionerRespondent.confidentialPetitionerDetails)
