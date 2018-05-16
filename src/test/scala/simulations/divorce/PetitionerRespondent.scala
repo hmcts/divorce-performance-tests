@@ -3,17 +3,16 @@ package simulations.divorce
 import com.typesafe.config._
 import io.gatling.core.Predef._
 import io.gatling.http.Predef._
-import simulations.checks.CsrfCheck
+import simulations.checks.{CsrfCheck, CurrentPageUrl}
 import simulations.checks.CsrfCheck.{csrfParameter, csrfTemplate}
 
 object PetitionerRespondent {
 
     val conf = ConfigFactory.load()
-    val baseurl: String = System.getenv("E2E_FRONTEND_URL")
+    val baseurl = scala.util.Properties.envOrElse("E2E_FRONTEND_URL", conf.getString("baseUrl")).toLowerCase()
     val continuePause = conf.getInt("continuePause")
 
-
-    val confidentialPetitionerDetails = exec(http("/petitioner-respondent/confidential")
+    val confidentialPetitionerDetails = exec(http("DIV01_170_Confidential")
         .post("/petitioner-respondent/confidential")
         .formParam("petitionerContactDetailsConfidential", "share")
         .formParam(csrfParameter, csrfTemplate)
@@ -22,7 +21,7 @@ object PetitionerRespondent {
         .check(CsrfCheck.save))
         .pause(continuePause)
 
-    val names = exec(http("/petitioner-respondent/names")
+    val names = exec(http("DIV01_180_PetitionRespondantNames")
         .post("/petitioner-respondent/names")
         .formParam("petitionerFirstName", "Petitioner")
         .formParam("petitionerLastName", "Name")
@@ -34,7 +33,7 @@ object PetitionerRespondent {
         .check(CsrfCheck.save))
         .pause(continuePause)
 
-    val namesOnMarriageCertificate = exec(http("/petitioner-respondent/names-on-certificate")
+    val namesOnMarriageCertificate = exec(http("DIV01_190_NamesOnCertificate")
         .post("/petitioner-respondent/names-on-certificate")
         .formParam("marriagePetitionerName", "Petitioner Marriage Name")
         .formParam("marriageRespondentName", "Respondent Marriage Name")
@@ -44,7 +43,7 @@ object PetitionerRespondent {
         .check(CsrfCheck.save))
         .pause(continuePause)
 
-    val namesChangedFromMarriageCertificate = exec(http("/petitioner-respondent/changed-name")
+    val namesChangedFromMarriageCertificate = exec(http("DIV01_200_ChangeName")
         .post("/petitioner-respondent/changed-name")
         .formParam("petitionerNameDifferentToMarriageCertificate", "Yes")
         .formParam("petitionerNameChangedHow[]", "other")
@@ -55,7 +54,7 @@ object PetitionerRespondent {
         .check(CsrfCheck.save))
         .pause(continuePause)
 
-    val petitionerContactDetails = exec(http("/petitioner-respondent/contact-details")
+    val petitionerContactDetails = exec(http("DIV01_210_RespondantContactDetails")
         .post("/petitioner-respondent/contact-details")
         .formParam("petitionerEmail", "petitioner.name@example.com")
         .formParam("petitionerPhoneNumber", "01234567890")
@@ -66,7 +65,7 @@ object PetitionerRespondent {
         .check(CsrfCheck.save))
         .pause(continuePause)
 
-    val petitionerAddress = exec(http("/petitioner-respondent/address")
+    val petitionerAddress = exec(http("DIV01_220_RespondantAddress")
         .post("/petitioner-respondent/address")
         .formParam("postcode", "sw1p 3bt")
         .formParam("addressType", "postcode")
@@ -76,7 +75,7 @@ object PetitionerRespondent {
         .check(status.is(200))
         .check(CsrfCheck.save))
         .pause(continuePause)
-        .exec(http("/petitioner-respondent/address")
+        .exec(http("DIV01_230_Resp_PostCodeToSendPetition")
             .post("/petitioner-respondent/address")
             .formParam("selectAddressIndex", "1")
             .formParam("addressType", "postcode")
@@ -87,7 +86,7 @@ object PetitionerRespondent {
             .check(status.is(200))
             .check(CsrfCheck.save))
         .pause(continuePause)
-        .exec(http("/petitioner-respondent/address")
+        .exec(http("DIV01_240_Resp_AddressToSendPetition")
             .post("/petitioner-respondent/address")
             .formParam("addressLine0", "The Royal Anniversary Trust")
             .formParam("addressLine1", "Sanctuary Buildings")
@@ -103,7 +102,7 @@ object PetitionerRespondent {
             .check(CsrfCheck.save))
         .pause(continuePause)
 
-    val petitionerCorrespondenceAddress = exec(http("/petitioner-respondent/petitioner-correspondence/use-home-address")
+    val petitionerCorrespondenceAddress = exec(http("DIV01_250_CorrHomeAddress")
         .post("/petitioner-respondent/petitioner-correspondence/use-home-address")
         .formParam("petitionerCorrespondenceUseHomeAddress", "Yes")
         .formParam(csrfParameter, csrfTemplate)
@@ -112,7 +111,7 @@ object PetitionerRespondent {
         .check(CsrfCheck.save))
         .pause(continuePause)
 
-    val liveTogether = exec(http("/petitioner-respondent/live-together")
+    val liveTogether = exec(http("DIV01_260_LiveTogether")
         .post("/petitioner-respondent/live-together")
         .formParam("livingArrangementsLiveTogether", "Yes")
         .formParam(csrfParameter, csrfTemplate)
@@ -121,7 +120,7 @@ object PetitionerRespondent {
         .check(CsrfCheck.save))
         .pause(continuePause)
 
-    val respondentCorrespondenceToHomeAddress = exec(http("/petitioner-respondent/respondent-correspondence/use-home-address")
+    val respondentCorrespondenceToHomeAddress = exec(http("DIV01_270_UseHomeAddress")
         .post("/petitioner-respondent/respondent-correspondence/use-home-address")
         .formParam("respondentCorrespondenceUseHomeAddress", "Yes")
         .formParam(csrfParameter, csrfTemplate)
@@ -130,22 +129,48 @@ object PetitionerRespondent {
         .check(CsrfCheck.save))
         .pause(continuePause)
 
-    val addMarriageCertificate = exec(http("add marriage certificate")
+
+  val addMarriageCertificate1MB =
+
+      exec(http("DIV01_410_About-Divorce_UploadMarriageCertificate-1MB")
         .post("/petitioner-respondent/marriage-certificate-upload?" + csrfParameter + "=" + csrfTemplate)
-        .bodyPart(RawFileBodyPart("file", "marriage_certificate.jpg")
-            .fileName("marriage_certificate.jpg")
-            .transferEncoding("binary")).asMultipartForm
+        .bodyPart(RawFileBodyPart("file", "1MB.pdf")
+          .fileName("1MB.pdf")
+          .transferEncoding("binary")).asMultipartForm
         .check(status.is(200))
         .check(currentLocation.is(baseurl + "/petitioner-respondent/marriage-certificate-upload"))
         .check(CsrfCheck.save))
         .pause(continuePause)
 
-    val completeMarriageCertificate = exec(http("/petitioner-respondent/marriage-certificate-upload")
+
+  val addMarriageCertificate5MB = exec(http("DIV01_410_About-Divorce_UploadMarriageCertificate-5MB")
+   .post("/petitioner-respondent/marriage-certificate-upload?" + csrfParameter + "=" + csrfTemplate)
+   .bodyPart(RawFileBodyPart("file", "5MB.pdf")
+     .fileName("5MB.pdf")
+     .transferEncoding("binary")).asMultipartForm
+   .check(status.is(200))
+   .check(currentLocation.is(baseurl + "/petitioner-respondent/marriage-certificate-upload"))
+   .check(CsrfCheck.save))
+   .pause(continuePause)
+
+ val addMarriageCertificate2MB = exec(http("DIV01_410_About-Divorce_UploadMarriageCertificate-2MB")
+   .post("/petitioner-respondent/marriage-certificate-upload?" + csrfParameter + "=" + csrfTemplate)
+   .bodyPart(RawFileBodyPart("file", "2MB.pdf")
+     .fileName("2MB.pdf")
+     .transferEncoding("binary")).asMultipartForm
+   .check(status.is(200))
+   .check(currentLocation.is(baseurl + "/petitioner-respondent/marriage-certificate-upload"))
+   .check(CsrfCheck.save))
+   .pause(continuePause)
+
+
+    val completeMarriageCertificate = exec(http("DIV01_420_CertificateUpload")
         .post("/petitioner-respondent/marriage-certificate-upload")
         .formParam("submit", "Continue")
         .formParam(csrfParameter, csrfTemplate)
         .check(status.is(200))
         .check(currentLocation.is(baseurl + "/check-your-answers"))
+      .check(CurrentPageUrl.save)
         .check(CsrfCheck.save))
         .pause(continuePause)
 

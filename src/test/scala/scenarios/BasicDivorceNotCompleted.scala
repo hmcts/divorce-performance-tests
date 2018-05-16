@@ -11,14 +11,10 @@ object BasicDivorceNotCompleted {
   val conf = ConfigFactory.load()
   val baseurl = scala.util.Properties.envOrElse("E2E_FRONTEND_URL", conf.getString("baseUrl")).toLowerCase()
   val idamBaseUrl = scala.util.Properties.envOrElse("IDAM_URL", conf.getString("idamBaseUrl")).toLowerCase()
-
- // val idamBaseUrl: String = System.getenv("IDAM_URL")
-
   val addIdamUserUrl = idamBaseUrl + "/testing-support/accounts"
   val continuePause = conf.getInt("continuePause")
   val jwtCookieName = conf.getString("idamCookieName")
-
-  val createIdamUsersFeeder = Feeders.createIdamUsersFeeder;
+  val createIdamUsersFeeder = Feeders.createIdamUsersFeeder
 
   val createUsers = feed(createIdamUsersFeeder).exec(http("Create IDAM users")
       .post(addIdamUserUrl)
@@ -31,16 +27,13 @@ object BasicDivorceNotCompleted {
         .exec(Public.indexPage)
         .exec(HomePage.startDivorce)
         .exec(Idam.login)
+
         // Screening Questions
         .exec(ScreeningQuestions.hasMarriageBroken)
         .exec(ScreeningQuestions.haveRespondentAddress)
         .exec(ScreeningQuestions.haveMarriageCertificate)
-      //need to include .exec(Pay.needHelpWithFeesNo) method after payment is sorted out.
-        //.exec(Pay.needHelpWithFeesNo)
-
-      //remove all below 4 if payment issue is sort out
         .exec(Pay.needHelpWithFeesYes)
-      .exec(Pay.helpWithFees)
+        .exec(Pay.helpWithFees)
 
         // About Your Marriage
         .exec(AboutYourMarriage.details)
@@ -82,18 +75,4 @@ object BasicDivorceNotCompleted {
         .exec(AboutDivorce.financialArrangements)
         .exec(AboutDivorce.financialAdvice)
         .exec(AboutDivorce.claimCosts)
-     //   .exec(PetitionerRespondent.addMarriageCertificate)
-     // .exec(PetitionerRespondent.addMarriageCertificate2)
-     // .exec(PetitionerRespondent.addMarriageCertificate3)
-     // .exec(PetitionerRespondent.completeMarriageCertificate)
-
-        // Check Your Answers
-      //folowing are for actual payments to pay.gov.uk
-
-//        .exec(CheckYourAnswers.confirm)
-   //   .exec(Pay.payonline)
-    //  .exec(Pay.carddetails)
-   //  .exec(Pay.doneandsubmitted)
-
-
 }

@@ -18,7 +18,7 @@ object Feeders {
   var generatedPassword = ""
 
   def generateEmailAddress() :String = {
-    generatedEmail = ("simulate-delivered-" + randomAlphanumericString(6) + "@notifications.service.gov.uk")
+    generatedEmail = ("simulate-delivered-" + randomAlphanumericString(8) + "@notifications.service.gov.uk")
     generatedEmail
   }
 

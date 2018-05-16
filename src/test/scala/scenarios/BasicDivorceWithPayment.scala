@@ -4,10 +4,9 @@ import com.typesafe.config._
 import io.gatling.core.Predef._
 import io.gatling.core.structure.ChainBuilder
 import io.gatling.http.Predef._
-
 import simulations.divorce._
 
-object BasicDivorce {
+object BasicDivorceWithPayment {
 
   val conf = ConfigFactory.load()
   val baseurl = scala.util.Properties.envOrElse("E2E_FRONTEND_URL", conf.getString("baseUrl")).toLowerCase()
@@ -31,13 +30,11 @@ object BasicDivorce {
       .exec(HomePage.startDivorce)
       .exec(Idam.login)
 
+      // Screening Questions
       .exec(ScreeningQuestions.hasMarriageBroken)
       .exec(ScreeningQuestions.haveRespondentAddress)
       .exec(ScreeningQuestions.haveMarriageCertificate)
-
-      //remove all below 4 if payment issue is sort out
-      .exec(Pay.needHelpWithFeesYes)
-      .exec(Pay.helpWithFees)
+      .exec(Pay.needHelpWithFeesNo)
 
       // About Your Marriage
       .exec(AboutYourMarriage.details)
@@ -79,7 +76,6 @@ object BasicDivorce {
       .exec(AboutDivorce.financialArrangements)
       .exec(AboutDivorce.financialAdvice)
       .exec(AboutDivorce.claimCosts)
-
       .repeat(3) {
         randomSwitch(
           80d -> exec(PetitionerRespondent.addMarriageCertificate1MB),
@@ -88,5 +84,10 @@ object BasicDivorce {
         )
       }
       .exec(PetitionerRespondent.completeMarriageCertificate)
+
+      // Check Your Answers
       .exec(CheckYourAnswers.confirm)
+      .exec(Pay.payonline)
+      .exec(Pay.carddetails)
+      .exec(Pay.doneandsubmitted)
 }

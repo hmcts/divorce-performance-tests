@@ -2,7 +2,6 @@ package simulations.divorce
 
 import io.gatling.core.Predef._
 import io.gatling.http.Predef._
-
 import com.typesafe.config._
 
 object Public {
@@ -11,11 +10,10 @@ object Public {
     val baseurl: String = System.getenv("E2E_FRONTEND_URL")
     val continuePause = conf.getInt("continuePause")
 
-
-    val indexPage = exec(http("/index")
+    val indexPage = exec(http(" DIV01_005_LandingPage")
         .get("/index")
         .check(status.is(200))
-        .check(regex("Start now").exists))
+        .check(regex("Continue").exists))
         .pause(continuePause)
 
 }

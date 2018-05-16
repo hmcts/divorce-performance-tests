@@ -9,11 +9,10 @@ import simulations.checks.CsrfCheck.{csrfParameter, csrfTemplate}
 object ReasonForDivorce {
 
     val conf = ConfigFactory.load()
-    val baseurl: String = System.getenv("E2E_FRONTEND_URL")
+    val baseurl = scala.util.Properties.envOrElse("E2E_FRONTEND_URL", conf.getString("baseUrl")).toLowerCase()
     val continuePause = conf.getInt("continuePause")
 
-
-    val reason = exec(http("/about-divorce/reason-for-divorce/reason")
+    val reason = exec(http("DIV01_280_ReasonForDivorce")
         .post("/about-divorce/reason-for-divorce/reason")
         .formParam("reasonForDivorce", "adultery")
         .formParam(csrfParameter, csrfTemplate)
@@ -22,7 +21,7 @@ object ReasonForDivorce {
         .check(CsrfCheck.save))
         .pause(continuePause)
 
-    val adulteryWishToName = exec(http("/about-divorce/reason-for-divorce/adultery/wish-to-name")
+    val adulteryWishToName = exec(http("DIV01_290_AdultryWishToName")
         .post("/about-divorce/reason-for-divorce/adultery/wish-to-name")
         .formParam("reasonForDivorceAdulteryWishToName", "Yes")
         .formParam(csrfParameter, csrfTemplate)
@@ -31,7 +30,7 @@ object ReasonForDivorce {
         .check(CsrfCheck.save))
         .pause(continuePause)
 
-    val adulteryNameOfCoRespondent = exec(http("/about-divorce/reason-for-divorce/adultery/name-person")
+    val adulteryNameOfCoRespondent = exec(http("DIV01_300_AdultryNamePerson")
         .post("/about-divorce/reason-for-divorce/adultery/name-person")
         .formParam("reasonForDivorceAdultery3rdPartyFirstName", "Adulterer")
         .formParam("reasonForDivorceAdultery3rdPartyLastName", "Name")
@@ -41,7 +40,7 @@ object ReasonForDivorce {
         .check(CsrfCheck.save))
         .pause(continuePause)
 
-    val adulteryCoRespondentAddress = exec(http("/about-divorce/reason-for-divorce/adultery/co-respondent-address")
+    val adulteryCoRespondentAddress = exec(http("DIV01_310_AdultryCoRespondantAddress")
         .post("/about-divorce/reason-for-divorce/adultery/co-respondent-address")
         .formParam("postcode", "SW1H 9NA")
         .formParam("addressType", "postcode")
@@ -51,7 +50,7 @@ object ReasonForDivorce {
         .check(status.is(200))
         .check(CsrfCheck.save))
         .pause(continuePause)
-        .exec(http("/about-divorce/reason-for-divorce/adultery/co-respondent-address")
+        .exec(http("DIV01_320_AdultryCoRespondantPostcode")
             .post("/about-divorce/reason-for-divorce/adultery/co-respondent-address")
             .formParam("selectAddressIndex", "1")
             .formParam("addressType", "postcode")
@@ -62,7 +61,7 @@ object ReasonForDivorce {
             .check(status.is(200))
             .check(CsrfCheck.save))
         .pause(continuePause)
-        .exec(http("/about-divorce/reason-for-divorce/adultery/co-respondent-address")
+        .exec(http("DIV01_330_AdultryCoRespondantAddressTosendThePetition")
             .post("/about-divorce/reason-for-divorce/adultery/co-respondent-address")
             .formParam("addressLine0", "Department for Work & Pensions")
             .formParam("addressLine1", "Caxton House")
@@ -78,7 +77,7 @@ object ReasonForDivorce {
             .check(CsrfCheck.save))
         .pause(continuePause)
 
-    val adulteryKnowWhere = exec(http("/about-divorce/reason-for-divorce/adultery/where")
+    val adulteryKnowWhere = exec(http("DIV01_340_AdulteryWhere")
         .post("/about-divorce/reason-for-divorce/adultery/where")
         .formParam("reasonForDivorceAdulteryKnowWhere", "Yes")
         .formParam(csrfParameter, csrfTemplate)
@@ -87,7 +86,7 @@ object ReasonForDivorce {
         .check(CsrfCheck.save))
         .pause(continuePause)
 
-    val adulteryKnowWhen = exec(http("/about-divorce/reason-for-divorce/adultery/when")
+    val adulteryKnowWhen = exec(http("DIV01_350_AdultryWhen")
         .post("/about-divorce/reason-for-divorce/adultery/when")
         .formParam("reasonForDivorceAdulteryKnowWhen", "Yes")
         .formParam(csrfParameter, csrfTemplate)
@@ -96,7 +95,7 @@ object ReasonForDivorce {
         .check(CsrfCheck.save))
         .pause(continuePause)
 
-    val adulteryDetails = exec(http("/about-divorce/reason-for-divorce/adultery/details")
+    val adulteryDetails = exec(http("DIV01_360_AdultryDetails")
         .post("/about-divorce/reason-for-divorce/adultery/details")
         .formParam("reasonForDivorceAdulteryWhenDetails", "Last year.")
         .formParam("reasonForDivorceAdulteryWhereDetails", "Away from home.")

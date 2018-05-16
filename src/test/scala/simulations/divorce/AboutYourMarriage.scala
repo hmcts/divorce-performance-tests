@@ -9,11 +9,10 @@ import simulations.checks.CsrfCheck.{csrfParameter, csrfTemplate}
 object AboutYourMarriage {
 
     val conf = ConfigFactory.load()
-    val baseurl: String = System.getenv("E2E_FRONTEND_URL")
+    val baseurl = scala.util.Properties.envOrElse("E2E_FRONTEND_URL", conf.getString("baseUrl")).toLowerCase()
     val continuePause = conf.getInt("continuePause")
 
-
-    val details = exec(http("/about-your-marriage/details")
+    val details = exec(http("DIV01_080_AboutMarriageDetails")
         .post("/about-your-marriage/details")
         .formParam("divorceWho", "wife")
         .formParam("hidden-marriageIsSameSexCouple", "no")
@@ -23,7 +22,7 @@ object AboutYourMarriage {
         .check(CsrfCheck.save))
         .pause(continuePause)
 
-    val date = exec(http("/about-your-marriage/date-of-marriage-certificate")
+    val date = exec(http("DIV01_090_DateOfMarriage")
         .post("/about-your-marriage/date-of-marriage-certificate")
         .formParam("marriageDateDay", "01")
         .formParam("marriageDateMonth", "04")
@@ -34,7 +33,7 @@ object AboutYourMarriage {
         .check(CsrfCheck.save))
         .pause(continuePause)
 
-    val inTheUK = exec(http("/about-your-marriage/in-the-uk")
+    val inTheUK = exec(http("DIV01_100_MarriageInTheUK")
         .post("/about-your-marriage/in-the-uk")
         .formParam("marriedInUk", "No")
         .formParam(csrfParameter, csrfTemplate)
@@ -43,7 +42,7 @@ object AboutYourMarriage {
         .check(CsrfCheck.save))
         .pause(continuePause)
 
-    val aboutYourMarriageCertificate = exec(http("/about-your-marriage/about-your-marriage-certificate")
+    val aboutYourMarriageCertificate = exec(http("DIV01_110_MarriageCertificate")
         .post("/about-your-marriage/about-your-marriage-certificate")
         .formParam("certificateInEnglish", "No")
         .formParam("certifiedTranslation", "Yes")
@@ -53,7 +52,7 @@ object AboutYourMarriage {
         .check(CsrfCheck.save))
         .pause(continuePause)
 
-    val foreignCertificate = exec(http("/about-your-marriage/foreign-certificate")
+    val foreignCertificate = exec(http("DIV01_120_ForeignCertificate")
         .post("/about-your-marriage/foreign-certificate")
         .formParam("countryName", "Canada")
         .formParam("placeOfMarriage", "Cathedral-Basilica of Notre-Dame de Québec")

@@ -10,12 +10,11 @@ import simulations.checks.CsrfCheck
 object Idam {
 
     val conf = ConfigFactory.load()
-    val baseurl: String = System.getenv("E2E_FRONTEND_URL")
-    val idamBaseUrl: String = System.getenv("IDAM_URL")
+    val baseurl = scala.util.Properties.envOrElse("E2E_FRONTEND_URL", conf.getString("baseUrl")).toLowerCase()
+    val idamBaseUrl = scala.util.Properties.envOrElse("IDAM_URL", conf.getString("idamBaseUrl")).toLowerCase()
     val continuePause = conf.getInt("continuePause")
 
-
-    val login = exec(http("/login")
+    val login = exec(http("DIV01_020_SubmitLogin")
             .post(idamBaseUrl + "/login?client_id=${client_id}&redirect_uri=${redirect_uri}&response_type=${response_type}&state=${state}")
             .formParam("_csrf", "${_csrf}")
             .formParam("response_type", "${response_type}")

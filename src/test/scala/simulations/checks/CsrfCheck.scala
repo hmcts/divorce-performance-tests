@@ -12,3 +12,10 @@ object CsrfCheck {
   def csrfParameter: String = "_csrf"
   def csrfTemplate: String = "${csrf}"
 }
+
+object CsrfCheckForPayment {
+  def save: CheckBuilder[HttpCheck, Response, NodeSelector, String] = css("input[name='csrfToken']", "value").saveAs("csrfToken")
+
+  def csrfParameterForPayment: String = "csrfToken"
+  def csrfTemplateForPayment: String = "${csrfToken}"
+}
