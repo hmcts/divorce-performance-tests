@@ -22,11 +22,10 @@ object BasicDivorce {
     .post(addIdamUserUrl)
     .body(StringBody("${addUser}")).asJSON
     .headers(Map("Content-Type" -> "application/json"))
-    .check(status.is(204)))
+    .check(status.is(201)))
 
   def DivorceSimulation(createUsers: ChainBuilder): ChainBuilder =
     createUsers
-
       .exec(Public.indexPage)
       .exec(HomePage.startDivorce)
       .exec(Idam.login)
@@ -40,14 +39,14 @@ object BasicDivorce {
       .exec(Pay.helpWithFees)
 
       // About Your Marriage
-      .exec(AboutYourMarriage.details)
+     .exec(AboutYourMarriage.details)
       .exec(AboutYourMarriage.date)
       .exec(AboutYourMarriage.inTheUK)
       .exec(AboutYourMarriage.aboutYourMarriageCertificate)
 
-      // Jurisdiction
+     // Jurisdiction
       .exec(AboutYourMarriage.foreignCertificate)
-      .exec(Jurisdiction.habitualResidence)
+     .exec(Jurisdiction.habitualResidence)
       .exec(Jurisdiction.domicile)
       .exec(Jurisdiction.lastHabitualResidence)
       .exec(Jurisdiction.interstitial)
@@ -63,7 +62,7 @@ object BasicDivorce {
 
       // Living Arrangements
       .exec(PetitionerRespondent.liveTogether)
-      .exec(PetitionerRespondent.respondentCorrespondenceToHomeAddress)
+     .exec(PetitionerRespondent.respondentCorrespondenceToHomeAddress)
 
       // Reason For Divorce
       .exec(ReasonForDivorce.reason)
@@ -74,19 +73,19 @@ object BasicDivorce {
       .exec(ReasonForDivorce.adulteryKnowWhen)
       .exec(ReasonForDivorce.adulteryDetails)
 
-      // Additional Details
-      .exec(AboutDivorce.legalProceedings)
-      .exec(AboutDivorce.financialArrangements)
+      // Additional Details.exec(AboutDivorce.legalProceedings)
+     .exec(AboutDivorce.financialArrangements)
       .exec(AboutDivorce.financialAdvice)
       .exec(AboutDivorce.claimCosts)
 
       .repeat(3) {
         randomSwitch(
           80d -> exec(PetitionerRespondent.addMarriageCertificate1MB),
-          10d -> exec(PetitionerRespondent.addMarriageCertificate2MB),
+         10d -> exec(PetitionerRespondent.addMarriageCertificate2MB),
           10d -> exec(PetitionerRespondent.addMarriageCertificate5MB)
         )
       }
       .exec(PetitionerRespondent.completeMarriageCertificate)
       .exec(CheckYourAnswers.confirm)
+
 }

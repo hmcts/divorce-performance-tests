@@ -17,6 +17,8 @@ object CheckYourAnswers {
     .formParam(csrfParameter, csrfTemplate)
     .check(status.is(200))
     .check(currentLocation.is(baseurl + "/done-and-submitted")))
+    //.check(regex("Application completed")))
+
     .pause(continuePause)
 
 }
