@@ -10,7 +10,7 @@ import simulations.divorce.AboutYourMarriage.conf
 object Jurisdiction {
 
     val conf = ConfigFactory.load()
-    val baseurl = scala.util.Properties.envOrElse("E2E_FRONTEND_URL", conf.getString("baseUrl")).toLowerCase()
+    val baseurl = scala.util.Properties.envOrElse("TEST_URL", conf.getString("baseUrl")).toLowerCase()
     val continuePause = conf.getInt("continuePause")
 
     val habitualResidence = exec(http("DIV01_130_HabitualResidence")

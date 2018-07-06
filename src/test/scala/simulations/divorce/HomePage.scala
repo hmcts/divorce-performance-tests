@@ -8,9 +8,7 @@ import simulations.divorce.AboutYourMarriage.conf
 object HomePage {
 
     val conf = ConfigFactory.load()
-    // val baseurl: String = System.getenv("E2E_FRONTEND_URL")
-    val baseurl = scala.util.Properties.envOrElse("E2E_FRONTEND_URL", conf.getString("baseUrl")).toLowerCase()
-
+    val baseurl = scala.util.Properties.envOrElse("TEST_URL", conf.getString("baseUrl")).toLowerCase()
     val continuePause = conf.getInt("continuePause")
 
 

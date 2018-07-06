@@ -9,7 +9,7 @@ import scala.collection.mutable.ArrayBuffer
 class Divorce extends Simulation
     with HttpConfiguration {
     val conf = ConfigFactory.load()
-    val baseurl = scala.util.Properties.envOrElse("E2E_FRONTEND_URL", conf.getString("baseUrl")).toLowerCase()
+    val baseurl = scala.util.Properties.envOrElse("TEST_URL", conf.getString("baseUrl")).toLowerCase()
     val httpconf = httpProtocol.baseURL(baseurl).disableCaching
     val continuePause = conf.getInt("continuePause")
     val userCount = conf.getInt("users")
