@@ -9,7 +9,7 @@ import simulations.checks.CsrfCheck.{csrfParameter, csrfTemplate}
 object AboutDivorce {
 
     val conf = ConfigFactory.load()
-    val baseurl = scala.util.Properties.envOrElse("E2E_FRONTEND_URL", conf.getString("baseUrl")).toLowerCase()
+    val baseurl = scala.util.Properties.envOrElse("TEST_URL", conf.getString("baseUrl")).toLowerCase()
     val continuePause = conf.getInt("continuePause")
 
     val legalProceedings = exec(http("DIV01_370_About-Divorce_Legal-Proceedings")

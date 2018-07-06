@@ -9,7 +9,7 @@ import simulations.divorce._
 object BasicDivorceWithPayment {
 
   val conf = ConfigFactory.load()
-  val baseurl = scala.util.Properties.envOrElse("E2E_FRONTEND_URL", conf.getString("baseUrl")).toLowerCase()
+  val baseurl = scala.util.Properties.envOrElse("TEST_URL", conf.getString("baseUrl")).toLowerCase()
   val idamBaseUrl = scala.util.Properties.envOrElse("IDAM_URL", conf.getString("idamBaseUrl")).toLowerCase()
   val feeder = csv("upload_docs.csv").random
   val addIdamUserUrl = idamBaseUrl + "/testing-support/accounts"
