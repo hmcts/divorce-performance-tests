@@ -2,17 +2,15 @@ package simulations.divorce
 
 import io.gatling.core.Predef._
 import io.gatling.http.Predef._
-
 import com.typesafe.config._
 
 object HomePage {
 
     val conf = ConfigFactory.load()
-    val baseurl: String = System.getenv("E2E_FRONTEND_URL")
+    val baseurl = scala.util.Properties.envOrElse("TEST_URL", conf.getString("baseUrl")).toLowerCase()
     val continuePause = conf.getInt("continuePause")
 
-
-    val startDivorce = exec(http("/start")
+    val startDivorce = exec(http("DIV01_010_StartPage")
         .get("/start")
         .check(css(".form-group>input[name='_csrf']", "value").saveAs("_csrf"))
         .check(css(".form-group>input[name='continue']", "value").saveAs("continue"))
