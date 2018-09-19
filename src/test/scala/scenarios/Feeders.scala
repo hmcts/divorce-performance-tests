@@ -18,13 +18,12 @@ object Feeders {
   var generatedPassword = ""
 
   def generateEmailAddress() :String = {
-    //generatedEmail = ("simulate-delivered100-" + randomAlphanumericString(8) + "@notifications.service.gov.uk")
-    generatedEmail = ("simulate-delivered102-" + randomAlphanumericString(8) + "@notifications.service.gov.uk")
+    generatedEmail = ("simulate-delivered-demo-" + randomAlphanumericString(8) + "@notifications.service.gov.uk")
     generatedEmail
   }
 
   def generatePassword() :String = {
-    generatedPassword = "P"+randomAlphanumericString(9)+"01"
+    generatedPassword = randomAlphanumericString(9)
     generatedPassword
   }
 
@@ -37,7 +36,6 @@ object Feeders {
       s"""{"email":"${generatedEmail}",
          |"forename":"john",
          |"surname":"smith",
-         |"roles":[{"code": "citizen"}],
          |"userGroup": {"code": "divorce-private-beta"},
          |"password":"${generatedPassword}"}""".stripMargin
 

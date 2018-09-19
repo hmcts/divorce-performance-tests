@@ -22,10 +22,17 @@ object BasicDivorce {
     .post(addIdamUserUrl)
     .body(StringBody("${addUser}")).asJSON
     .headers(Map("Content-Type" -> "application/json"))
-    .check(status.is(201)))
+    .check(status.is(204)))
 
   def DivorceSimulation(createUsers: ChainBuilder): ChainBuilder =
     createUsers
+      .exec {
+        session =>
+          //println("this is a userid ....." + session("generatedemail").as[String])
+           println("this is a user json ....." + session("addUser").as[String])
+
+          session
+      }
       .exec(Public.indexPage)
       .exec(HomePage.startDivorce)
       .exec(Idam.login)
