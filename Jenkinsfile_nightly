@@ -14,16 +14,10 @@ properties([
 def product = "div"
 def component = "pfe"
 
-withNightlyPipeline("nodejs", product, component) {
-    env.TEST_URL = params.URL_TO_TEST
-    env.IDAM_URL = params.IDAM_URL
-
-    enablePerformanceTest()
-
-    after('performanceTest') {
-        steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'functional-output/**/*'
+// parameters are: product, component, environment
+withPerformanceTest(product, component, params.ENVIRONMENT) {
+    // Set target URL
+    before('performancetest') {
+        env.TEST_URL = params.TEST_URL
     }
-
-//    enableSlackNotifications('#div-dev')  // can be turned back on once the overnight functionality is working fully
 }
-z
