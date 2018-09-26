@@ -11,8 +11,7 @@ import simulations.divorce.AboutYourMarriage.conf
 object Idam {
 
     val conf = ConfigFactory.load()
-    // val baseurl: String = System.getenv("E2E_FRONTEND_URL")
-    val baseurl = scala.util.Properties.envOrElse("E2E_FRONTEND_URL", conf.getString("baseUrl")).toLowerCase()
+    val baseurl = scala.util.Properties.envOrElse("TEST_URL", conf.getString("baseUrl")).toLowerCase()
     val idamBaseUrl = scala.util.Properties.envOrElse("IDAM_URL", conf.getString("idamBaseUrl")).toLowerCase()
     // val idamBaseUrl: String = System.getenv("IDAM_URL")
     val continuePause = conf.getInt("continuePause")

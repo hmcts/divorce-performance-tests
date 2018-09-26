@@ -7,7 +7,7 @@ import com.typesafe.config._
 object Public {
 
     val conf = ConfigFactory.load()
-    val baseurl: String = System.getenv("E2E_FRONTEND_URL")
+    val baseurl: String = System.getenv("TEST_URL")
     val continuePause = conf.getInt("continuePause")
 
     val indexPage = exec(http(" DIV01_005_LandingPage")

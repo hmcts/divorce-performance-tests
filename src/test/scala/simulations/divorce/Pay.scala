@@ -12,7 +12,7 @@ import simulations.checks.{CsrfCheck, CsrfCheckForPayment, CurrentPageUrl, Payme
 object Pay {
 
     val conf = ConfigFactory.load()
-    val baseurl = scala.util.Properties.envOrElse("E2E_FRONTEND_URL", conf.getString("baseUrl")).toLowerCase()
+    val baseurl = scala.util.Properties.envOrElse("TEST_URL", conf.getString("baseUrl")).toLowerCase()
     val continuePause = conf.getInt("continuePause")
 
     val needHelpWithFeesNo = exec(http("DIV_60_NeedHelpWithFeesNo")
