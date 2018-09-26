@@ -19,5 +19,6 @@ withPerformanceTest(product, component, params.ENVIRONMENT) {
     // Set target URL
     before('performancetest') {
         env.TEST_URL = params.TEST_URL
+        env.IDAM_URL = params.IDAM_URL
     }
 }
