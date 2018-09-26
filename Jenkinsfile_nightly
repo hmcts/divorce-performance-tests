@@ -9,7 +9,7 @@ properties([
         ])
 ])
 
-@Library("Infrastructure")
+@Library("Infrastructure") _
 
 def product = "div"
 def component = "pfe"
