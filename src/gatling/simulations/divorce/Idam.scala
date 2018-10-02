@@ -12,14 +12,12 @@ object Idam {
 
     val conf = ConfigFactory.load()
     val baseurl = scala.util.Properties.envOrElse("TEST_URL", conf.getString("baseUrl")).toLowerCase()
-    val idamBaseUrl = scala.util.Properties.envOrElse("IDAM_URL", conf.getString("idamBaseUrl")).toLowerCase()
+    val idamWebUrl = scala.util.Properties.envOrElse("IDAM_WEB_URL", conf.getString("idamWebUrl")).toLowerCase()
     // val idamBaseUrl: String = System.getenv("IDAM_URL")
     val continuePause = conf.getInt("continuePause")
 
-
-
     val login = exec(http("DIV_20_SubmitLogin")
-      .post(idamBaseUrl + "/login?client_id=${client_id}&redirect_uri=${redirect_uri}&response_type=${response_type}&state=${state}")
+      .post(idamWebUrl + "/login?client_id=${client_id}&redirect_uri=${redirect_uri}&response_type=${response_type}&state=${state}")
       .formParam("_csrf", "${_csrf}")
       .formParam("response_type", "${response_type}")
       .formParam("redirect_uri", "${redirect_uri}")
