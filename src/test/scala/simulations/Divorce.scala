@@ -46,6 +46,6 @@ class Divorce extends Simulation
 
     setUp(
        scenario1.inject(
-          atOnceUsers(1)).protocols(httpconf))
+          atOnceUsers(10)).protocols(httpconf))
 
 }
