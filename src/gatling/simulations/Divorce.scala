@@ -44,8 +44,13 @@ class Divorce extends Simulation
         global.responseTime.max.lessThan(expectedGlobalMaxResponseTime),
         global.requestsPerSec.greaterThan(expectedRequestPerSecond))
 
-    setUp(
-       scenario1.inject(
-          atOnceUsers(1)).protocols(httpconf))
+        setUp(
+   scenario1.inject(
+     nothingFor(10),
+     rampUsers(10) over (100)
+   ).protocols(httpconf)
+ )
+        
+        
 
 }
