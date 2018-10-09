@@ -15,7 +15,8 @@ properties([
 def product = "div"
 def component = "pfe"
 
-withNightlyPipeline("java", product, component) {
+withNightlyPipeline("java", product, component) 
+
     env.TEST_URL = params.URL_TO_TEST
     env.IDAM_URL = params.IDAM_URL
     env.IDAM_WEB_URL = params.IDAM_WEB_URL
