@@ -1,0 +1,10 @@
+{
+  "simulation": "simulations.Divorce",
+  "simulationId": "divorce",
+  "start": 1560960076926,
+  "description": "",
+  "scenarios": ["Basic Divorce"],
+  "assertions": [
+
+  ]
+}
