@@ -8,7 +8,7 @@ properties([
                 string(name: 'idamBaseUrlLogin', defaultValue: 'https://idam-web-public-idam-aat.service.core-compute-idam-aat.internal', description: 'The IDAM API Url to create and delete users from'),
                 string(name: 'idamBaseUrl', defaultValue: 'https://idam-api-idam-aat.service.core-compute-idam-aat.internal', description: 'The CCD Url'),
                 string(name: 'divorceAPIAAT', defaultValue: 'http://div-cms-aat.service.core-compute-aat.internal', description: 'The CCD Case Create Url'),
-                string(name: 'aosBaseUrl', defaultValue: 'https://div-rfe-aat.service.core-compute-aat.internal', description: 'The CCD Gateway Url')
+                string(name: 'aosBaseUrl', defaultValue: 'https://div-rfe-aat.service.core-compute-aat.internal', description: 'The CCD Gateway Url'),
                 string(name: 'dnBaseUrl', defaultValue: 'https://div-dn-aat.service.core-compute-aat.internal', description: 'The CCD Gateway Url')
         ])
 ])
