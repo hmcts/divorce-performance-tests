@@ -1,3 +1,180 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <suppressions xmlns="https://jeremylong.github.io/DependencyCheck/dependency-suppression.1.1.xsd">
+    <suppress>
+        <notes><![CDATA[
+   file name: groovy-all-2.4.15.jar
+   ]]></notes>
+        <sha1>423a17aeb2f64bc6f76e8e44265a548bec80fd42</sha1>
+        <cpe>cpe:/a:apache:groovy</cpe>
+    </suppress>
+    <suppress>
+        <notes><![CDATA[
+   file name: groovy-all-2.4.15.jar
+   ]]></notes>
+        <sha1>423a17aeb2f64bc6f76e8e44265a548bec80fd42</sha1>
+        <cve>CVE-2016-6497</cve>
+    </suppress>
+    <suppress>
+        <notes><![CDATA[
+   file name: gatling-app-3.1.1.jar
+   ]]></notes>
+        <gav regex="true">^io\.gatling:gatling-app:.*$</gav>
+        <cpe>cpe:/a:app_project:app</cpe>
+    </suppress>
+    <suppress>
+        <notes><![CDATA[
+   file name: gatling-app-3.1.1.jar
+   ]]></notes>
+        <gav regex="true">^io\.gatling:gatling-app:.*$</gav>
+        <cve>CVE-2018-13661</cve>
+    </suppress>
+    <suppress>
+        <notes><![CDATA[
+   file name: jackson-databind-2.9.8.jar
+   ]]></notes>
+        <gav regex="true">^com\.fasterxml\.jackson\.core:jackson-databind:.*$</gav>
+        <cpe>cpe:/a:fasterxml:jackson</cpe>
+    </suppress>
+    <suppress>
+        <notes><![CDATA[
+   file name: jackson-databind-2.9.8.jar
+   ]]></notes>
+        <gav regex="true">^com\.fasterxml\.jackson\.core:jackson-databind:.*$</gav>
+        <cpe>cpe:/a:fasterxml:jackson-databind</cpe>
+    </suppress>
+    <suppress>
+        <notes><![CDATA[
+   file name: jackson-databind-2.9.8.jar
+   ]]></notes>
+        <gav regex="true">^com\.fasterxml\.jackson\.core:jackson-databind:.*$</gav>
+        <cve>CVE-2019-12086</cve>
+    </suppress>
+    <suppress>
+        <notes><![CDATA[
+   file name: netty-tcnative-boringssl-static-2.0.22.Final.jar
+   ]]></notes>
+        <gav regex="true">^io\.netty:netty-tcnative-boringssl-static:.*$</gav>
+        <cpe>cpe:/a:netty_project:netty</cpe>
+    </suppress>
+    <suppress>
+        <notes><![CDATA[
+   file name: netty-tcnative-boringssl-static-2.0.22.Final.jar
+   ]]></notes>
+        <gav regex="true">^io\.netty:netty-tcnative-boringssl-static:.*$</gav>
+        <cve>CVE-2014-3488</cve>
+    </suppress>
+    <suppress>
+        <notes><![CDATA[
+   file name: netty-tcnative-boringssl-static-2.0.22.Final.jar
+   ]]></notes>
+        <gav regex="true">^io\.netty:netty-tcnative-boringssl-static:.*$</gav>
+        <cve>CVE-2015-2156</cve>
+    </suppress>
+    <suppress>
+        <notes><![CDATA[
+   file name: gradle-api-4.10.2.jar (shaded: com.google.guava:guava-jdk5:17.0)
+   ]]></notes>
+        <gav regex="true">^com\.google\.guava:guava-jdk5:.*$</gav>
+        <cpe>cpe:/a:google:guava</cpe>
+    </suppress>
+
+    <suppress>
+        <notes><![CDATA[
+   file name: gradle-api-4.10.2.jar (shaded: com.google.guava:guava-jdk5:17.0)
+   ]]></notes>
+        <gav regex="true">^com\.google\.guava:guava-jdk5:.*$</gav>
+        <cve>CVE-2018-10237</cve>
+    </suppress>
+    <suppress>
+        <notes><![CDATA[
+   file name: gradle-api-4.10.2.jar (shaded: com.fasterxml.jackson.core:jackson-databind:2.9.4)
+   ]]></notes>
+        <gav regex="true">^com\.fasterxml\.jackson\.core:jackson-databind:.*$</gav>
+        <cpe>cpe:/a:fasterxml:jackson</cpe>
+    </suppress>
+    <suppress>
+        <notes><![CDATA[
+   file name: gradle-api-4.10.2.jar (shaded: com.fasterxml.jackson.core:jackson-databind:2.9.4)
+   ]]></notes>
+        <gav regex="true">^com\.fasterxml\.jackson\.core:jackson-databind:.*$</gav>
+        <cpe>cpe:/a:fasterxml:jackson-databind</cpe>
+    </suppress>
+    <suppress>
+        <notes><![CDATA[
+   file name: gradle-api-4.10.2.jar (shaded: com.fasterxml.jackson.core:jackson-databind:2.9.4)
+   ]]></notes>
+        <gav regex="true">^com\.fasterxml\.jackson\.core:jackson-databind:.*$</gav>
+        <cve>CVE-2018-1000873</cve>
+    </suppress>
+    <suppress>
+        <notes><![CDATA[
+   file name: gradle-api-4.10.2.jar (shaded: com.fasterxml.jackson.core:jackson-databind:2.9.4)
+   ]]></notes>
+        <gav regex="true">^com\.fasterxml\.jackson\.core:jackson-databind:.*$</gav>
+        <cve>CVE-2018-12022</cve>
+    </suppress>
+    <suppress>
+        <notes><![CDATA[
+   file name: gradle-api-4.10.2.jar (shaded: com.fasterxml.jackson.core:jackson-databind:2.9.4)
+   ]]></notes>
+        <gav regex="true">^com\.fasterxml\.jackson\.core:jackson-databind:.*$</gav>
+        <cve>CVE-2018-12023</cve>
+    </suppress>
+    <suppress>
+        <notes><![CDATA[
+   file name: gradle-api-4.10.2.jar (shaded: com.fasterxml.jackson.core:jackson-databind:2.9.4)
+   ]]></notes>
+        <gav regex="true">^com\.fasterxml\.jackson\.core:jackson-databind:.*$</gav>
+        <cve>CVE-2018-14718</cve>
+    </suppress>
+
+    <suppress>
+        <notes><![CDATA[
+   file name: gradle-api-4.10.2.jar (shaded: com.fasterxml.jackson.core:jackson-databind:2.9.4)
+   ]]></notes>
+        <gav regex="true">^com\.fasterxml\.jackson\.core:jackson-databind:.*$</gav>
+        <cve>CVE-2018-14719</cve>
+    </suppress>
+    <suppress>
+        <notes><![CDATA[
+   file name: gradle-api-4.10.2.jar (shaded: com.fasterxml.jackson.core:jackson-databind:2.9.4)
+   ]]></notes>
+        <gav regex="true">^com\.fasterxml\.jackson\.core:jackson-databind:.*$</gav>
+        <cve>CVE-2018-14720</cve>
+    </suppress>
+    <suppress>
+        <notes><![CDATA[
+   file name: gradle-api-4.10.2.jar (shaded: com.fasterxml.jackson.core:jackson-databind:2.9.4)
+   ]]></notes>
+        <gav regex="true">^com\.fasterxml\.jackson\.core:jackson-databind:.*$</gav>
+        <cve>CVE-2018-14721</cve>
+    </suppress>
+    <suppress>
+        <notes><![CDATA[
+   file name: gradle-api-4.10.2.jar (shaded: com.fasterxml.jackson.core:jackson-databind:2.9.4)
+   ]]></notes>
+        <gav regex="true">^com\.fasterxml\.jackson\.core:jackson-databind:.*$</gav>
+        <cve>CVE-2018-19360</cve>
+    </suppress>
+    <suppress>
+        <notes><![CDATA[
+   file name: gradle-api-4.10.2.jar (shaded: com.fasterxml.jackson.core:jackson-databind:2.9.4)
+   ]]></notes>
+        <gav regex="true">^com\.fasterxml\.jackson\.core:jackson-databind:.*$</gav>
+        <cve>CVE-2018-19361</cve>
+    </suppress>
+    <suppress>
+        <notes><![CDATA[
+   file name: gradle-api-4.10.2.jar (shaded: com.fasterxml.jackson.core:jackson-databind:2.9.4)
+   ]]></notes>
+        <gav regex="true">^com\.fasterxml\.jackson\.core:jackson-databind:.*$</gav>
+        <cve>CVE-2018-19362</cve>
+    </suppress>
+    <suppress>
+        <notes><![CDATA[
+   file name: gradle-api-4.10.2.jar (shaded: com.fasterxml.jackson.core:jackson-databind:2.9.4)
+   ]]></notes>
+        <gav regex="true">^com\.fasterxml\.jackson\.core:jackson-databind:.*$</gav>
+        <cve>CVE-2019-12086</cve>
+    </suppress>
 </suppressions>
