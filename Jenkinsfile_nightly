@@ -37,7 +37,7 @@ dnBaseUrl="https://div-dn-aat.service.core-compute-aat.internal"
 @Library("Infrastructure") 
 
 
-def product = "divorce"
+def product = "div"
 def component = "petition"
 
 withNightlyPipeline("java", product, component) {
