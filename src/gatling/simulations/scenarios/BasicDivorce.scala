@@ -4,9 +4,7 @@ import com.typesafe.config._
 import io.gatling.core.Predef._
 import io.gatling.core.structure.ChainBuilder
 import io.gatling.http.Predef._
-
 import simulations.divorce._
-import simulations.caseworker._
 
 object BasicDivorce {
 
@@ -42,6 +40,8 @@ object BasicDivorce {
       .exec(ScreeningQuestions.hasMarriageBroken)
       .exec(ScreeningQuestions.haveRespondentAddress)
       .exec(ScreeningQuestions.haveMarriageCertificate)
+
+      .exec(ScreeningQuestions.financeremidy)
 
       //remove all below 4 if payment issue is sort out
       .exec(Pay.needHelpWithFeesYes)

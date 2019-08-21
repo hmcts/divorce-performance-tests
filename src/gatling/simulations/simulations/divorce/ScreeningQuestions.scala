@@ -35,8 +35,17 @@ object ScreeningQuestions {
         .formParam("screenHasMarriageCert", "Yes")
         .formParam(csrfParameter, csrfTemplate)
         .check(status.is(200))
-        .check(currentLocation.is(baseurl + "/pay/help/need-help"))
+        .check(currentLocation.is(baseurl + "/screening-questions/financial-remedy"))
         .check(CsrfCheck.save))
         .pause(continuePause)
+
+    val financeremidy = exec(http("DIV01_050_FinanceRemidy")
+      .post("/screening-questions/financial-remedy")
+      .formParam("submit", "Continue")
+      .formParam(csrfParameter, csrfTemplate)
+      .check(status.is(200))
+      .check(currentLocation.is(baseurl + "/pay/help/need-help"))
+      .check(CsrfCheck.save))
+      .pause(continuePause)
 
 }
