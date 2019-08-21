@@ -39,7 +39,7 @@ object ScreeningQuestions {
         .check(CsrfCheck.save))
         .pause(continuePause)
 
-    val financeremidy = exec(http("DIV01_050_FinanceRemidy")
+    val financeremidy = exec(http("DIV01_055_FinanceRemidy")
       .post("/screening-questions/financial-remedy")
       .formParam("submit", "Continue")
       .formParam(csrfParameter, csrfTemplate)

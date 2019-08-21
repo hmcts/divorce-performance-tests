@@ -1,5 +1,5 @@
 plugins {
-    id 'org.owasp.dependencycheck' version '3.3.4'
+    id 'org.owasp.dependencycheck' version '5.1.0'
     id 'scala'
     id 'com.github.lkishalmi.gatling' version '3.0.2'
     id 'java-gradle-plugin'
@@ -20,12 +20,12 @@ jar {
     }
 }
 
-/*dependencyCheck {
+dependencyCheck {
     // Specifies if the build should be failed if a CVSS score above a specified level is identified.
     // range of 0-10 fails the build, anything greater and it doesn't fail the build
     failBuildOnCVSS = System.getProperty('dependencyCheck.failBuild') == 'true' ? 0 : 11
     suppressionFile = 'dependency-check-suppressions.xml'
-}*/
+}
 
 repositories {
     jcenter()
