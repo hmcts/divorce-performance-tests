@@ -1,4 +1,4 @@
-FROM java:8-jdk-alpine
+FROM hmctspublic.azurecr.io/base/java:openjdk-11-distroless-1.4
 
 # working directory for gatling
 WORKDIR /opt
