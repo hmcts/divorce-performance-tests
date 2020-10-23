@@ -1,6 +1,16 @@
-results/*
 .DS_Store
-.idea/
-target/
-*.iml
+
+# Gradle
 .gradle
+
+# Generated
+/build
+/out
+/target
+results/*
+
+# IntelliJ
+*.ipr
+*.iml
+*.iws
+.idea
