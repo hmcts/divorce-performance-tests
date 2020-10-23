@@ -3,3 +3,4 @@ results/*
 .idea/
 target/
 *.iml
+.gradle
