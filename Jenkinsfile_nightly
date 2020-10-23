@@ -13,8 +13,7 @@ properties([
         ])
 ])
 
-
-
+sourceCompatibility = 11
 
 //baseUrl="https://www.apply-divorce.demo.platform.hmcts.net"
 baseUrl="https://div-pfe-aat.service.core-compute-aat.internal"
@@ -32,10 +31,7 @@ divorceAPIAAT="http://div-cms-aat.service.core-compute-aat.internal"
 aosBaseUrl="https://div-rfe-aat.service.core-compute-aat.internal"
 dnBaseUrl="https://div-dn-aat.service.core-compute-aat.internal"
 
-
-
-@Library("Infrastructure") 
-
+@Library("Infrastructure")
 
 def product = "div"
 def component = "petition"
