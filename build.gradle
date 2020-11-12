@@ -1,17 +1,19 @@
 plugins {
-    id 'org.owasp.dependencycheck' version '5.1.0'
-    id 'scala'
+    id "org.owasp.dependencycheck" version "6.0.2"
     id 'com.github.lkishalmi.gatling' version '3.0.2'
-    id 'java-gradle-plugin'
     id 'groovy'
     id 'com.gradle.plugin-publish' version '0.9.8'
     id 'maven-publish'
 }
 
-//apply plugin: 'java'
 apply plugin: 'scala'
+apply plugin: 'com.github.lkishalmi.gatling'
+
 group 'uk.gov.hmcts.reform'
 version = '1.0'
+
+sourceCompatibility = "11"
+targetCompatibility = "11"
 
 jar {
     manifest {
@@ -20,33 +22,36 @@ jar {
     }
 }
 
-dependencyCheck {
-    // Specifies if the build should be failed if a CVSS score above a specified level is identified.
-    // range of 0-10 fails the build, anything greater and it doesn't fail the build
-    failBuildOnCVSS = System.getProperty('dependencyCheck.failBuild') == 'false' ? 0 : 11
-    suppressionFile = 'dependency-check-suppressions.xml'
-}
+//dependencyCheck {
+//    // Specifies if the build should be failed if a CVSS score above a specified level is identified.
+//    // range of 0-10 fails the build, anything greater and it doesn't fail the build
+//    failBuildOnCVSS = System.getProperty('dependencyCheck.failBuild') == 'false' ? 0 : 11
+//    suppressionFile = 'dependency-check-suppressions.xml'
+//}
 
 repositories {
     jcenter()
 }
 
+ext {
+    gatlingVersion = '3.2.0'
+    scalaVersion = '2.12.8'
+}
 
 dependencies {
-    compile 'org.scala-lang:scala-library:2.12.8'
-
+    compile group:"org.yaml", name: "snakeyaml", version:"1.26"
+    testCompile group: 'org.scala-lang', name: 'scala-library', version: scalaVersion
+    compileOnly group: 'io.gatling.highcharts', name: 'gatling-charts-highcharts', version: gatlingVersion
+    testCompile group: 'io.gatling', name: 'gatling-app', version: gatlingVersion
+    gatlingCompile group: 'io.rest-assured', name: 'rest-assured', version: '3.0.0'
     gatlingCompile 'com.warrenstrange:googleauth:1.1.5'
-    compile group: 'io.gatling', name: 'gatling-app', version: '3.1.1'
-
-    compile group: 'io.gatling', name: 'gatling-recorder', version: '3.1.1'
-    compile group: 'io.gatling.highcharts', name: 'gatling-charts-highcharts', version: '3.1.1'
-
+    gatlingRuntime group: 'io.gatling.highcharts', name: 'gatling-charts-highcharts', version: gatlingVersion
 }
 
 gatling {
-    toolVersion '3.1.1'
+    toolVersion '3.2.0'
     scalaVersion '2.12.8'
-    simulations = [ 'simulations.Divorce'
+    simulations = [ 'uk.gov.hmcts.ccd.corecasedata.simulations.CCDPipelineSimulation'
     ]
 }
 
@@ -67,4 +72,4 @@ pluginBundle {
 
 }
 
-ext ['netty.version'] = '4.0.51.Final'
+//ext ['netty.version'] = '4.0.51.Final'
