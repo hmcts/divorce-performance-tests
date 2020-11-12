@@ -69,4 +69,4 @@ pluginBundle {
 
 }
 
-ext ['netty.version'] = '4.0.51.Final'
+//ext ['netty.version'] = '4.0.51.Final'
