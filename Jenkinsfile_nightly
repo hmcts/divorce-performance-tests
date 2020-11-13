@@ -4,32 +4,24 @@ properties([
         pipelineTriggers([cron('00 21 * * *')]),
         parameters([
                 string(name: 'ENVIRONMENT', defaultValue: 'aat', description: 'Environment to test'),
-                string(name: 'baseUrl', defaultValue: 'https://div-pfe-aat.service.core-compute-aat.internal', description: 'The URL you want to run these tests against'),
-                string(name: 'idamBaseUrlLogin', defaultValue: 'https://idam-web-public-idam-aat.service.core-compute-idam-aat.internal', description: 'The IDAM API Url to create and delete users from'),
-                string(name: 'idamBaseUrl', defaultValue: 'https://idam-api-idam-aat.service.core-compute-idam-aat.internal', description: 'The CCD Url'),
+                string(name: 'baseUrl', defaultValue: 'http://petitioner-frontend-aks.aat.platform.hmcts.net', description: 'The URL you want to run these tests against'),
+                string(name: 'idamBaseUrlLogin', defaultValue: 'https://idam-web-public.aat.platform.hmcts.net', description: 'The IDAM API Url to create and delete users from'),
+                string(name: 'idamBaseUrl', defaultValue: 'https://idam-api.aat.platform.hmcts.net', description: 'The CCD Url'),
                 string(name: 'divorceAPIAAT', defaultValue: 'http://div-cms-aat.service.core-compute-aat.internal', description: 'The CCD Case Create Url'),
-                string(name: 'aosBaseUrl', defaultValue: 'https://div-rfe-aat.service.core-compute-aat.internal', description: 'The CCD Gateway Url'),
-                string(name: 'dnBaseUrl', defaultValue: 'https://div-dn-aat.service.core-compute-aat.internal', description: 'The CCD Gateway Url')
+                string(name: 'aosBaseUrl', defaultValue: 'http://respond-divorce-aks.aat.platform.hmcts.net', description: 'The CCD Gateway Url'),
+                string(name: 'dnBaseUrl', defaultValue: 'https://decree-nisi-aks.aat.platform.hmcts.net', description: 'The CCD Gateway Url')
         ])
 ])
 
 sourceCompatibility = 11
 
-//baseUrl="https://www.apply-divorce.demo.platform.hmcts.net"
-baseUrl="https://div-pfe-aat.service.core-compute-aat.internal"
-//baseUrl="https://div-pfe-aat.service.core-compute-aat.internal"
+baseUrl="http://petitioner-frontend-aks.aat.platform.hmcts.net"
 useIdam="true"
-//idamAccountUrl = "https://preprod-idamapi.reform.hmcts.net:3511/testing-support/accounts"
-//idambaseUrl = "https://idam.preprod.ccidam.reform.hmcts.net"
-idamBaseUrlLogin = "https://idam-web-public-idam-aat.service.core-compute-idam-aat.internal"
-//idambaseUrl="http://betaDevBccidamAppLB.reform.hmcts.net:80"
-idamBaseUrl = "https://idam-api-idam-aat.service.core-compute-idam-aat.internal"
-//divorceAPISprod="http://div-cms-sprod.service.core-compute-sprod.internal"
+idamBaseUrlLogin = "https://idam-web-public.aat.platform.hmcts.net"
+idamBaseUrl = "https://idam-api.aat.platform.hmcts.net"
 divorceAPIAAT="http://div-cms-aat.service.core-compute-aat.internal"
-//idambaseUrl = "http://idam-api-idam-saat.service.core-compute-idam-saat.internal"
-//idamWebUrl="https://idam.preprod.ccidam.reform.hmcts.net"
-aosBaseUrl="https://div-rfe-aat.service.core-compute-aat.internal"
-dnBaseUrl="https://div-dn-aat.service.core-compute-aat.internal"
+aosBaseUrl="http://respond-divorce-aks.aat.platform.hmcts.net"
+dnBaseUrl="https://decree-nisi-aks.aat.platform.hmcts.net"
 
 @Library("Infrastructure")
 
@@ -49,7 +41,4 @@ withNightlyPipeline("java", product, component) {
     after('performanceTest') {
         steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'functional-output/**/*'
     }
-
-    //enableSlackNotifications('#jui-nightly-builds')
-
 }
