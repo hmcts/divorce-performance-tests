@@ -1,6 +1,6 @@
 plugins {
     id 'org.owasp.dependencycheck' version '6.0.2'
-    id 'scala'
+    //id 'scala'
     id 'com.github.lkishalmi.gatling' version '3.0.2'
     id 'groovy'
     id 'com.gradle.plugin-publish' version '0.9.8'
@@ -8,7 +8,7 @@ plugins {
 }
 
 apply plugin: 'scala'
-//apply plugin: 'com.github.lkishalmi.gatling'
+apply plugin: 'com.github.lkishalmi.gatling'
 
 group 'uk.gov.hmcts.reform'
 version = '1.0'
@@ -34,25 +34,32 @@ repositories {
     jcenter()
 }
 
-//ext {
+ext {
 //    gatlingVersion = '3.2.0'
-//    scalaVersion = '2.12.8'
-//}
+    gatlingVersion = '3.1.1'
+    scalaVersion = '2.12.8'
+}
 
 dependencies {
     compile group:"org.yaml", name: "snakeyaml", version:"1.26"
-    compile 'org.scala-lang:scala-library:2.12.8'
+//    compile 'org.scala-lang:scala-library:2.12.8'
+    testCompile group: 'org.scala-lang', name: 'scala-library', version: scalaVersion
+    compileOnly group: 'io.gatling.highcharts', name: 'gatling-charts-highcharts', version: gatlingVersion
+    testCompile group: 'io.gatling', name: 'gatling-app', version: gatlingVersion
+    gatlingCompile group: 'io.rest-assured', name: 'rest-assured', version: '3.0.0'
     gatlingCompile 'com.warrenstrange:googleauth:1.1.5'
-    compile group: 'io.gatling', name: 'gatling-app', version: '3.1.1'
-    compile group: 'io.gatling', name: 'gatling-recorder', version: '3.1.1'
-    compile group: 'io.gatling.highcharts', name: 'gatling-charts-highcharts', version: '3.1.1'
+    gatlingRuntime group: 'io.gatling.highcharts', name: 'gatling-charts-highcharts', version: gatlingVersion
+//    compile group: 'io.gatling', name: 'gatling-app', version: '3.1.1'
+//    compile group: 'io.gatling', name: 'gatling-recorder', version: '3.1.1'
+//    compile group: 'io.gatling.highcharts', name: 'gatling-charts-highcharts', version: '3.1.1'
 
 }
 
 gatling {
     toolVersion '3.1.1'
     scalaVersion '2.12.8'
-    simulations = [ 'simulations.Divorce']
+    simulations = [ 'uk.gov.hmcts.ccd.corecasedata.simulations.CCDPipelineSimulation']
+//    simulations = [ 'simulations.Divorce']
 }
 
 test {
@@ -68,8 +75,6 @@ pluginBundle {
     vcsUrl = 'https://github.com/lkishalmi/gradle-gatling-plugin'
     description = 'Gatling Simulation Execution'
     tags = ['gatling', 'load test', 'stress test', 'performance test', 'scala']
-
-
 }
 
 //ext ['netty.version'] = '4.0.51.Final'
