@@ -15,19 +15,11 @@ properties([
 
 sourceCompatibility = 11
 
-//baseUrl="https://www.apply-divorce.demo.platform.hmcts.net"
 baseUrl="http://petitioner-frontend-aks.aat.platform.hmcts.net"
-//baseUrl="https://div-pfe-aat.service.core-compute-aat.internal"
 useIdam="true"
-//idamAccountUrl = "https://preprod-idamapi.reform.hmcts.net:3511/testing-support/accounts"
-//idambaseUrl = "https://idam.preprod.ccidam.reform.hmcts.net"
 idamBaseUrlLogin = "https://idam-web-public.aat.platform.hmcts.net"
-//idambaseUrl="http://betaDevBccidamAppLB.reform.hmcts.net:80"
 idamBaseUrl = "https://idam-api.aat.platform.hmcts.net"
-//divorceAPISprod="http://div-cms-sprod.service.core-compute-sprod.internal"
 divorceAPIAAT="http://div-cms-aat.service.core-compute-aat.internal"
-//idambaseUrl = "http://idam-api-idam-saat.service.core-compute-idam-saat.internal"
-//idamWebUrl="https://idam.preprod.ccidam.reform.hmcts.net"
 aosBaseUrl="http://respond-divorce-aks.aat.platform.hmcts.net"
 dnBaseUrl="https://decree-nisi-aks.aat.platform.hmcts.net"
 
@@ -49,7 +41,4 @@ withNightlyPipeline("java", product, component) {
     after('performanceTest') {
         steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'functional-output/**/*'
     }
-
-    //enableSlackNotifications('#jui-nightly-builds')
-
 }
